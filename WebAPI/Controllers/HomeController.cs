@@ -21,8 +21,17 @@ namespace WebAPI.Controllers
         [HttpGet("Get-AllEmployee")]
         public IActionResult Get()
         {
-            var employees =  _appDbContext.Employees.ToList();
-            return Ok(employees);
+            try
+            {
+                var employees = _appDbContext.Employees.ToList();
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("","Timeout occurred.");
+                //throw;
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpGet("Get-EmployeeById/{id}")]
