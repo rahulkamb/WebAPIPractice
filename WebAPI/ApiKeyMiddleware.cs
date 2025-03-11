@@ -1,6 +1,6 @@
 ﻿namespace WebAPI
 {
-    public class ApiKeyMiddleware
+    public sealed class ApiKeyMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly string _userKey;
@@ -28,9 +28,7 @@
                 await context.Response.WriteAsync("Invalid User Key.");
                 return;
             }
-
             await _next(context); // Call the next middleware
         }
     }
-
 }

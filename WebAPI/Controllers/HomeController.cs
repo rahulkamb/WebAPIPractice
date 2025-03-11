@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Data;
 using WebAPI.Data.Model;
@@ -19,6 +20,7 @@ namespace WebAPI.Controllers
 
 
         [HttpGet("Get-AllEmployee")]
+        [Authorize]
         public IActionResult Get()
         {
             try
@@ -35,6 +37,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("Get-EmployeeById/{id}")]
+        [Authorize]
         public IActionResult Get(int id)
         {
             Employee emp = _appDbContext.Employees.FirstOrDefault(x => x.Id == id);
@@ -46,6 +49,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Add-NewUser")]
+        [Authorize]
         public IActionResult Create(EmployeeVM emp)
         {
             var _employee = new Employee()
@@ -64,6 +68,7 @@ namespace WebAPI.Controllers
 
 
         [HttpPut("Update-EmployeeByID/{Empid}")]
+        [Authorize]
         public IActionResult Update(int Empid , EmployeeVM emp)
         {
             if(Empid == 0)
@@ -93,6 +98,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("Delete-EmployeeById/{Empid}")]
+        [Authorize]
         public IActionResult Delete(int Empid)
         {
             if(Empid < 0 || Empid.ToString() == null)
